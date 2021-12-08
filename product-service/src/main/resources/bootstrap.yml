@@ -18,13 +18,19 @@ spring:
       token: s.bjcH61InuBlb8yyPHCafrhrR
       application-name: product-service
 
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
 #Открыть точку /actuator/refresh
 #Важный момент: надо открыть конечную точку refresh, чтобы на нее можно было делать запросы. Для этого создадим файл bootstrap.properties и пропишем в нем:
 management:
   endpoints:
     web:
       exposure:
-        include: refresh
+        include: busrefresh
 
 
 #0 будет динамически устанавливать свободный порт во время старта

@@ -11,8 +11,17 @@ spring:
       token: s.bjcH61InuBlb8yyPHCafrhrR
       application-name: order-service
 
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
+
 management:
   endpoints:
     web:
       exposure:
-        include: refresh
+        include: busrefresh
+
+

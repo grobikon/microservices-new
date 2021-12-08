@@ -29,6 +29,7 @@ dependencies {
     implementation("org.springframework.cloud:spring-cloud-starter-bootstrap:3.1.0")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.springframework.cloud:spring-cloud-starter-vault-config:3.1.0")
+    implementation("org.springframework.cloud:spring-cloud-starter-bus-amqp:3.1.0")
     runtimeOnly("org.postgresql:postgresql")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
