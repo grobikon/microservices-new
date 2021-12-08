@@ -1,0 +1,36 @@
+spring:
+  application:
+    name: product-service
+
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/product_service
+
+  cloud:
+    config:
+      uri: http://localhost:8888
+
+    vault:
+      host: localhost
+      port: 8200
+      scheme: http
+      authentication: TOKEN
+      token: s.bjcH61InuBlb8yyPHCafrhrR
+      application-name: product-service
+
+#Открыть точку /actuator/refresh
+#Важный момент: надо открыть конечную точку refresh, чтобы на нее можно было делать запросы. Для этого создадим файл bootstrap.properties и пропишем в нем:
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh
+
+
+#0 будет динамически устанавливать свободный порт во время старта
+server:
+  port: 0
+
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${random.uuid}
