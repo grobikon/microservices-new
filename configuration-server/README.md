@@ -24,5 +24,5 @@ order-service-credentials.json
 
 Теперь нам нужно записать эти json-файлы в Vault Store, используя следующие команды:
 
-* vault kv put secret/order-service @order-service-credentials.json
-* vault kv put secret/product-service @product-service-credentials.json
+* vault kv put secret/order-service @order-service.json
+* vault kv put secret/product-service @product-service.json
