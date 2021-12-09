@@ -30,13 +30,16 @@ order-service-credentials.json
 
 * vault kv put secret/order-service @order-service.json
 * vault kv put secret/product-service @product-service.json
+* vault kv put secret/inventory-service @inventory-service.json
 
 ###Чтобы удалить данные из Vault, нужно вызвать команду:
 
 * vault kv delete secret/order-service
 * vault kv delete secret/product-service
+* vault kv delete secret/inventory-service
 
 ###Чтобы посмотреть данные из Vault, нужно вызвать команду:
 
 * vault kv get secret/order-service
 * vault kv get secret/product-service
+* vault kv get secret/inventory-service

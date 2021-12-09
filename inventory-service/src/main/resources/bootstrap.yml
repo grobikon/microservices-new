@@ -1,0 +1,47 @@
+spring:
+  application:
+    name: inventory-service
+
+  #порт на котором запускается сервер конфигураций
+  cloud:
+    config:
+      uri: http://localhost:8888
+
+    #настройки vault сервера, где храним секретные ключи
+    vault:
+      host: localhost
+      port: 8200
+      scheme: http
+      authentication: TOKEN
+      token: s.3qYfwonmulsJMtkzMB43tbcD
+      application-name: ${spring.application.name}
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8180/auth/realms/microservices-realm
+
+  #настройки от cloud bus, будем получать уведомления об изменении настроек на git
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
+#Открыть точку /actuator/refresh
+#Важный момент: надо открыть конечную точку refresh, чтобы на нее можно было делать запросы. Для этого создадим файл bootstrap.properties.txt и пропишем в нем:
+management:
+  endpoints:
+    web:
+      exposure:
+        include: busrefresh
+
+
+#0 будет динамически устанавливать свободный порт во время старта
+server:
+  port: 8183
+
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${random.uuid}
