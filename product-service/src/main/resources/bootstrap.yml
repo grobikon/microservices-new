@@ -2,20 +2,18 @@ spring:
   application:
     name: product-service
 
-  #data:
-    #mongodb:
-      #uri: mongodb://localhost:27017/product_service
-
   security:
     oauth2:
       resourceserver:
         jwt:
           issuer-uri: http://localhost:8180/auth/realms/microservices-realm
 
+  #порт на котором запускается сервер конфигураций
   cloud:
     config:
       uri: http://localhost:8888
 
+    #настройки vault сервера, где храним секретные ключи
     vault:
       host: localhost
       port: 8200
@@ -24,6 +22,7 @@ spring:
       token: s.3qYfwonmulsJMtkzMB43tbcD
       application-name: product-service
 
+  #настройки от cloud bus, будем получать уведомления об изменении настроек на git
   rabbitmq:
     host: localhost
     port: 5672
@@ -31,7 +30,7 @@ spring:
     password: guest
 
 #Открыть точку /actuator/refresh
-#Важный момент: надо открыть конечную точку refresh, чтобы на нее можно было делать запросы. Для этого создадим файл bootstrap.properties и пропишем в нем:
+#Важный момент: надо открыть конечную точку refresh, чтобы на нее можно было делать запросы. Для этого создадим файл bootstrap.properties.txt и пропишем в нем:
 management:
   endpoints:
     web:

@@ -1,0 +1,25 @@
+spring.application.name=product-service
+spring.security.oauth2.resourceserver.jwt.issuer-uri=http://localhost:8180/auth/realms/microservices-realm
+spring.cloud.config.uri=http://localhost:8888
+
+spring.cloud.vault.host=localhost
+spring.cloud.vault.port=8200
+spring.cloud.vault.scheme=http
+spring.cloud.vault.authentication=TOKEN
+spring.cloud.vault.token=s.3qYfwonmulsJMtkzMB43tbcD
+spring.cloud.vault.application-name=product-service
+
+spring.rabbitmq.host=localhost
+spring.rabbitmq.port=5672
+spring.rabbitmq.username=guest
+spring.rabbitmq.password=guest
+
+#Открыть точку /actuator/refresh
+#Важный момент: надо открыть конечную точку refresh, чтобы на нее можно было делать запросы.
+#Для этого создадим файл bootstrap.properties и пропишем в нем:
+management.endpoints.web.exposure.include=*
+
+#0 будет динамически устанавливать свободный порт во время старта
+server.port=0
+eureka.instance.instance-id=${spring.application.name}:${random.uuid}
+
