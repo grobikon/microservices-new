@@ -2,6 +2,25 @@ spring:
   application:
     name: api-gateway
 
+  main:
+    allow-bean-definition-overriding: true
+
+  security:
+    oauth2:
+      client:
+        provider:
+          keycloak:
+            issuer-uri: http://localhost:8180/auth/realms/microservices-realm
+
+        registration:
+          spring-cloud-gateway-client:
+            client-id: spring-cloud-gateway-client
+            client-secret: 126c9d95-3a75-48a0-8430-c1761af344af
+            provider: keycloak
+            authorization-grant-type: authorization_code
+            redirect-uri: http://localhost:8080/login/oauth2/code/spring-cloud-gateway-client
+
+
   cloud:
     gateway:
       discovery:
@@ -14,8 +33,12 @@ spring:
           uri: lb://product-service
           predicates:
             - Path=/api/product
+      default-filters: TokenRelay
 
 
 eureka:
   instance:
     instance-id: ${spring.application.name}:${random.uuid}
+
+
+

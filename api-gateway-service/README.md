@@ -8,3 +8,8 @@
 ### Spring Cloud Netflix: Ribbon по-русски
 Ribbon — это балансировщик нагрузки.
 https://medium.com/@kirill.sereda/spring-cloud-netflix-ribbon-%D0%BF%D0%BE-%D1%80%D1%83%D1%81%D1%81%D0%BA%D0%B8-2ded121e1377
+
+
+### Keycloak
+#### C:\Users\grobi\Downloads\keycloak-15.0.2\keycloak-15.0.2\bin
+###standalone.bat -Djboss.http.port=8180

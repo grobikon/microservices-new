@@ -1,4 +1,12 @@
 spring:
+  application:
+    name: order-service
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/order-service
+    #username: postgres
+    #password: root
+
   cloud:
     config:
       uri: http://localhost:8888
@@ -8,7 +16,7 @@ spring:
       port: 8200
       scheme: http
       authentication: TOKEN
-      token: s.XsFUnBGIKMjVENObaFAoWyY6
+      token: s.3qYfwonmulsJMtkzMB43tbcD
       application-name: order-service
 
   rabbitmq:
@@ -24,4 +32,11 @@ management:
       exposure:
         include: busrefresh
 
+#0 будет динамически устанавливать свободный порт во время старта
+server:
+  port: 0
+
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${random.uuid}
 
