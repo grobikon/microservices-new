@@ -30,6 +30,9 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.springframework.cloud:spring-cloud-starter-vault-config:3.1.0")
     implementation("org.springframework.cloud:spring-cloud-starter-bus-amqp:3.1.0")
+    implementation("org.springframework.cloud:spring-cloud-starter-openfeign:3.0.5")
+    implementation("org.springframework.boot:spring-boot-starter-security:2.6.1")
+    implementation("org.springframework.boot:spring-boot-starter-oauth2-resource-server:2.6.1")    //межсервисной связи с использованием клиента
     runtimeOnly("org.postgresql:postgresql")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 }

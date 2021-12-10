@@ -10,13 +10,16 @@ spring:
   cloud:
     config:
       uri: http://localhost:8888
+    loadbalancer:
+      ribbon:
+        enabled: false
 
     vault:
       host: localhost
       port: 8200
       scheme: http
       authentication: TOKEN
-      token: s.3qYfwonmulsJMtkzMB43tbcD
+      token: s.v9HNbugH75phDuZWzVoG4jwt
       application-name: order-service
 
   rabbitmq:

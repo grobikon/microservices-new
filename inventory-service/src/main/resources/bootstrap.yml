@@ -13,7 +13,7 @@ spring:
       port: 8200
       scheme: http
       authentication: TOKEN
-      token: s.3qYfwonmulsJMtkzMB43tbcD
+      token: s.v9HNbugH75phDuZWzVoG4jwt
       application-name: ${spring.application.name}
 
   security:

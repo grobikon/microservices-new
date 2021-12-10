@@ -1,0 +1,15 @@
+package ru.grobikon.orderservice.client
+
+import org.springframework.cloud.openfeign.FeignClient
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
+
+/**
+ * @FeignClient(name = "inventory-service") name - равен значению из bootstrap.yml
+ */
+@FeignClient(name = "inventory-service")
+interface InventoryClient {
+
+    @GetMapping("/api/inventory/{skuCode}")
+    fun checkStock(@PathVariable skuCode: String): Boolean
+}
