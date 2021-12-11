@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import ru.grobikon.inventoryservice.model.Inventory
 import ru.grobikon.inventoryservice.repository.InventoryRepository
+import java.util.logging.Logger
 
 
 @RestController
@@ -14,9 +15,13 @@ class InventoryRestController(
     val inventoryRepository: InventoryRepository
 ) {
 
+    companion object {
+        val LOG = Logger.getLogger(InventoryRestController::class.java.name)
+    }
+
     @GetMapping("/{skuCode}")
     fun isInStock(@PathVariable skuCode: String): Boolean {
-        println("Проверка наличия товара на складе с помощью skucode: $skuCode")
+        LOG.info("Проверка наличия товара на складе с помощью skucode: $skuCode")
         val inventory: Inventory = inventoryRepository.findBySkuCode(skuCode)
             .orElseThrow{ RuntimeException("Не можем найти продукт с кодом: $skuCode") }
         return inventory.stock != null && inventory.stock!! > 0

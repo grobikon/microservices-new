@@ -1,7 +1,9 @@
 package ru.grobikon.orderservice.controller
 
+import org.springframework.cloud.circuitbreaker.resilience4j.Resilience4JCircuitBreaker
 import org.springframework.cloud.circuitbreaker.resilience4j.Resilience4JCircuitBreakerFactory
 import org.springframework.cloud.stream.function.StreamBridge
+import org.springframework.messaging.support.MessageBuilder
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
@@ -11,7 +13,9 @@ import ru.grobikon.orderservice.dto.OrderDto
 import ru.grobikon.orderservice.model.Order
 import ru.grobikon.orderservice.repository.OrderRepository
 import java.util.*
+import java.util.concurrent.ExecutorService
 import java.util.function.Supplier
+import java.util.logging.Logger
 
 
 @RestController
@@ -20,20 +24,25 @@ class OrderController(
     val orderRepository: OrderRepository,
     val inventoryClient: InventoryClient,
     val circuitBreakerFactory: Resilience4JCircuitBreakerFactory,
-    val streamBridge: StreamBridge
+    val streamBridge: StreamBridge,
+    val traceableExecutorService: ExecutorService        //для отслеживания трассировки запросов
 ) {
+    companion object {
+        val LOG = Logger.getLogger(OrderController::class.java.name)
+    }
 
     @PostMapping
     fun placeOrder(@RequestBody orderDto: OrderDto): String {
         //Проверяем все товары в наличии
         try {
-            val circuitBreaker = circuitBreakerFactory.create("inventory")
-            orderDto.orderLineItemsList?:return "Заказ не удался, попробуйте ещё раз."
+            circuitBreakerFactory.configureExecutorService(traceableExecutorService)    //передаем имя отслеживаемой службы исполнитель
+            val circuitBreaker: Resilience4JCircuitBreaker = circuitBreakerFactory.create("inventory")
+            if (orderDto.orderLineItemsList.isNullOrEmpty()) return "Заказ не удался, попробуйте ещё раз."
 
             val booleanSupplier = Supplier<Boolean> {
                 orderDto.orderLineItemsList!!.stream()
                     .allMatch { lineItem ->
-                        println("Выполнение вызова Службы инвентаризации для SkuCode ${lineItem.skuCode}")
+                        LOG.info("Выполнение вызова Службы инвентаризации для SkuCode ${lineItem.skuCode}")
                         inventoryClient.checkStock(lineItem.skuCode!!)
                     }
             }
@@ -44,10 +53,10 @@ class OrderController(
                 val order = Order()
                 order.orderListItems = orderDto.orderLineItemsList
                 order.orderNumber = UUID.randomUUID().toString()
-                orderRepository.save(order)
 
-                println("Отправка деталей заказа в службу уведомлений")
-                streamBridge.send("notificationEventSupplier-out-0", order.id)
+                orderRepository.save(order)
+                println("Отправка деталей заказа в службу уведомлений ${order.id!!}")
+                streamBridge.send("notificationEventSupplier-out-0", MessageBuilder.withPayload(order.id!!).build())
 
                 return "Заказ успешно отправлен"
             }

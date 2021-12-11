@@ -2,6 +2,7 @@ spring:
   application:
     name: order-service
 
+
   datasource:
     url: jdbc:postgresql://localhost:5432/order-service
     #username: postgres

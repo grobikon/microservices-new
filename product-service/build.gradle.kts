@@ -32,6 +32,8 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-security")
     implementation("org.springframework.security:spring-security-oauth2-resource-server:5.6.0")
     implementation("org.springframework.security:spring-security-oauth2-jose:5.6.0")
+    implementation("org.springframework.cloud:spring-cloud-starter-sleuth:3.1.0")
+    implementation("org.springframework.cloud:spring-cloud-sleuth-zipkin:3.1.0")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 

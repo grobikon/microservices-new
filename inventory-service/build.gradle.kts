@@ -32,6 +32,8 @@ dependencies {
     implementation("org.springframework.cloud:spring-cloud-starter-vault-config")
     implementation("org.springframework.cloud:spring-cloud-starter-bootstrap:3.1.0")
     implementation("org.springframework.security:spring-security-oauth2-jose:5.6.0")
+    implementation("org.springframework.cloud:spring-cloud-starter-sleuth:3.1.0")
+    implementation("org.springframework.cloud:spring-cloud-sleuth-zipkin:3.1.0")
     runtimeOnly("org.postgresql:postgresql")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.security:spring-security-test")
