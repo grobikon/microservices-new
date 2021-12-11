@@ -7,6 +7,10 @@ spring:
 
   security:
     oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://localhost:8180/auth/realms/microservices-realm/protocol/openid-connect/certs
+
       client:
         provider:
           keycloak:
@@ -24,10 +28,16 @@ spring:
   cloud:
     gateway:
 
+      loadbalancer:
+        ribbon:
+          enabled: false
+
       discovery:
         locator:
           enabled: true
           lower-case-service-id: true
+
+      default-filters: TokenRelay
 
       routes:
         - id: product-service
@@ -38,7 +48,6 @@ spring:
           uri: lb://order-service
           predicates:
             - Path=/api/order
-      default-filters: TokenRelay
 
 
 eureka:

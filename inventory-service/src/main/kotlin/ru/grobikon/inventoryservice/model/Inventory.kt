@@ -7,7 +7,7 @@ import javax.persistence.*
 data class Inventory(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long,
-    var skuCode: String,
-    var stock: Int
+    var id: Long? = null,
+    var skuCode: String? = null,
+    var stock: Int? = null
 )

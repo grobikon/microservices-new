@@ -20,21 +20,26 @@ class OrderController(
     @PostMapping
     fun placeOrder(@RequestBody orderDto: OrderDto): String {
         //Проверяем все товары в наличии
-        val allProductsInStock = orderDto.orderLineItemsList?.stream()
-            ?.allMatch { orderLineItems ->
-                if (orderLineItems.skuCode != null) inventoryClient.checkStock(orderLineItems.skuCode!!) else false
-            }?:false
+        try {
+            val allProductsInStock = orderDto.orderLineItemsList?.stream()
+                ?.allMatch { orderLineItems ->
+                    if (orderLineItems.skuCode != null) inventoryClient.checkStock(orderLineItems.skuCode!!) else false
+                }?:false
 
-        if (allProductsInStock) {
-            //Создаём новый заказ
-            val order = Order()
-            order.orderListItems = orderDto.orderLineItemsList
-            order.orderNumber = UUID.randomUUID().toString()
-            orderRepository.save(order)
+            if (allProductsInStock) {
+                //Создаём новый заказ
+                val order = Order()
+                order.orderListItems = orderDto.orderLineItemsList
+                order.orderNumber = UUID.randomUUID().toString()
+                orderRepository.save(order)
 
-            return "Заказ успешно отправлен"
+                return "Заказ успешно отправлен"
+            }
+
+            return "Заказ не удался, попробуйте ещё раз."
+        }catch (e: Exception) {
+            println(e.message.toString())
+            return "Заказ не удался, попробуйте ещё раз."
         }
-
-        return "Заказ не удался, попробуйте ещё раз."
     }
 }

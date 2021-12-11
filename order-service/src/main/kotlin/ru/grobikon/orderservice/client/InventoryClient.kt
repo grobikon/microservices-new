@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 
 /**
+ * Будем отправлять запрос на склад для проверки наличия товара
  * @FeignClient(name = "inventory-service") name - равен значению из bootstrap.yml
  */
 @FeignClient(name = "inventory-service")

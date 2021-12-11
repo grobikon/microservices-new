@@ -19,7 +19,7 @@ spring:
       port: 8200
       scheme: http
       authentication: TOKEN
-      token: s.v9HNbugH75phDuZWzVoG4jwt
+      token: s.GPLWkHMiZCkFatbX1PICw2I0
       application-name: product-service
 
   #настройки от cloud bus, будем получать уведомления об изменении настроек на git

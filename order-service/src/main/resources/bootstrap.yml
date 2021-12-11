@@ -7,6 +7,12 @@ spring:
     #username: postgres
     #password: root
 
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8180/auth/realms/microservices-realm
+
   cloud:
     config:
       uri: http://localhost:8888
@@ -19,7 +25,7 @@ spring:
       port: 8200
       scheme: http
       authentication: TOKEN
-      token: s.v9HNbugH75phDuZWzVoG4jwt
+      token: s.GPLWkHMiZCkFatbX1PICw2I0
       application-name: order-service
 
   rabbitmq:
