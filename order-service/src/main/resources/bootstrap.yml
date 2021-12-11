@@ -28,6 +28,13 @@ spring:
       token: s.QFjIf43rSiEuyyN4fHnfhjVh
       application-name: order-service
 
+    #Поставщик событий уведомлений
+    stream:
+      bindings:
+        notificationEventSupplier-out-0:
+          destination: notification-events
+      source: notificationEventSupplier
+
   rabbitmq:
     host: localhost
     port: 5672
