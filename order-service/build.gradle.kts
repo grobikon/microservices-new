@@ -33,6 +33,7 @@ dependencies {
     implementation("org.springframework.cloud:spring-cloud-starter-openfeign:3.0.5")
     implementation("org.springframework.boot:spring-boot-starter-security:2.6.1")
     implementation("org.springframework.boot:spring-boot-starter-oauth2-resource-server:2.6.1")    //межсервисной связи с использованием клиента
+    implementation("org.springframework.cloud:spring-cloud-starter-circuitbreaker-resilience4j:1.0.0.RELEASE")
     runtimeOnly("org.postgresql:postgresql")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
