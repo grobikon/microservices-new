@@ -25,7 +25,7 @@ spring:
       port: 8200
       scheme: http
       authentication: TOKEN
-      token: s.GPLWkHMiZCkFatbX1PICw2I0
+      token: s.QFjIf43rSiEuyyN4fHnfhjVh
       application-name: order-service
 
   rabbitmq:
