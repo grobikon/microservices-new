@@ -34,6 +34,7 @@ dependencies {
     implementation("org.springframework.security:spring-security-oauth2-jose:5.6.0")
     implementation("org.springframework.cloud:spring-cloud-starter-sleuth:3.1.0")
     implementation("org.springframework.cloud:spring-cloud-sleuth-zipkin:3.1.0")
+    implementation("net.logstash.logback:logstash-logback-encoder:7.0.1")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 
